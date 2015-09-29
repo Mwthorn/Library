@@ -1,1 +1,73 @@
 
+import java.util.Scanner;
+
+public class SodaMachine {
+	public static int limoLeft = 2, colaLeft = 3, waterLeft = 1;
+	public static int cola = 1, water = 2, limo = 3, choice = 0, moneyGiven = 0;
+	
+	public static Scanner input = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		int totalDrinks = limoLeft + colaLeft + waterLeft;
+		while (totalDrinks > 0) {
+			start();
+			merchandise();
+			choice();
+			getMoney();
+			giveChange();
+			totalDrinks = limoLeft + colaLeft + waterLeft;
+		}
+		
+		System.out.println("Sorry, no more drinks available.");
+	}
+	
+	public static void start() {
+		System.out.println("--------------------");
+		System.out.println("Select a product");
+	}
+	
+	public static void merchandise() {
+		if (colaLeft > 0)
+			System.out.println("1 - Cola");
+		if (waterLeft > 0)
+			System.out.println("2 - Water");
+		if (limoLeft > 0)
+			System.out.println("3 - Limo");
+	}
+	
+	public static void choice() {
+		boolean validChoice = false;
+		
+		while (validChoice == false) {
+			System.out.print("Your choice: ");
+			choice = input.nextInt();
+			if (choice == 1 && colaLeft > 0){
+				validChoice = true;
+				colaLeft--;
+			}
+			else if (choice == 2 && waterLeft > 0){
+				validChoice = true;
+				waterLeft--;
+			}
+			else if (choice == 3 && limoLeft > 0){
+				validChoice = true;
+				limoLeft--;
+			}
+		}
+	}
+	
+	public static void getMoney() {
+		while (moneyGiven < 25) {
+			System.out.print("Please insert " + (25 - moneyGiven) + "  kr. ");
+			moneyGiven += input.nextInt();
+		}
+	}
+	
+	public static void giveChange() {
+		if (moneyGiven == 25)
+			System.out.println("Thank you. Please take your drink.");
+		else
+			System.out.println("Thank you. Please take your change (" + (moneyGiven - 25) + " kr) and drink.");
+		moneyGiven = 0;
+	}
+}
