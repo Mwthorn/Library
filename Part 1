@@ -12,18 +12,17 @@ public class SafeDivMult{
 	public static int safeIntMultiply(int a, int b) {
 		try {
 			int prev = 0, current = 0, c = a, d = b;
-			if (a == Integer.MIN_VALUE)
-				c++;
-			if (b == Integer.MIN_VALUE)
-				d++;
 			
+			if ((a == Integer.MIN_VALUE || b == Integer.MIN_VALUE) && (a == 1 || b == 1))
+				return Integer.MIN_VALUE;
+		
 			if (c < 0)
 				c = c * -1;
 			if (d < 0)
 				d = d * -1;
-			for (int i = 0; i < d; i++) {
+			for (int i = 1; i <= d; i++) {
 				prev = current;
-				current = a*i;
+				current = c*i;
 				if (prev > current)
 					a = a / 0;
 			}
