@@ -1,0 +1,22 @@
+
+public class SafeDivMult{
+	public static int safeIntDivide(int a, int b) {
+		try {
+			int answer = a / b;
+			return answer;
+		} catch (ArithmeticException e) {
+			System.out.println("ERROR");
+			return 0;
+		}
+	}
+	
+	public static int safeIntMultiply(int a, int b) {
+		try {
+			int answer = a * b;
+			return answer;
+		} catch (ArithmeticException e) {
+			System.out.println("ERROR");
+			return 0;
+		}
+	}
+}
