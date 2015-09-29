@@ -1,13 +1,27 @@
-public class ISBN13 {
 
+public class ISBN13 {
 	public static int checkDigit(String a) {
 		int total = 0;
-		String charAt = "a";
-		for (int i = 0; i < a.length(); i++) {
-			if (i % 2 == 1)
-				total += 3*Integer.parseInt(charAt.replace(charAt.charAt(0), a.charAt(i)));
-			else
-				total += Integer.parseInt(charAt.replace(charAt.charAt(0), a.charAt(i)));
+		
+		//Create a string of a single char
+		String singleString = "a";
+		
+		//Test to see if is of a wrong total length
+		if (a.length() != 12)
+			return -1;
+		
+		//Catching parsing errors if they insert chars in the string
+		try {
+			for (int i = 0; i <= 11; i++) {
+				if (i % 2 == 1)
+					// Retrieving chars at i location, swapping them 
+					//in to the string and then parsing them to ints
+					total += 3*Integer.parseInt(singleString.replace(singleString.charAt(0), a.charAt(i)));
+				else
+					total += Integer.parseInt(singleString.replace(singleString.charAt(0), a.charAt(i)));
+			}
+		} catch (RuntimeException e) {
+			return -1;
 		}
 		
 		total = 10 - (total % 10);
