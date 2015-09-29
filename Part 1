@@ -1,6 +1,14 @@
 
 public class SafeDivMult{
-	public static int safeIntDivide(int a, int b) {
+	public static void main(String[] a){
+	        System.out.println(SafeDivMult.safeIntDivide(4, 2));
+	        System.out.println(SafeDivMult.safeIntDivide(123843, 13));
+	 
+	        System.out.println(SafeDivMult.safeIntMultiply(5, 2));
+	        System.out.println(SafeDivMult.safeIntMultiply(348234, 11));
+    	}
+    	
+	 static int safeIntDivide(int a, int b) {
 		try {
 			int answer = a / b;
 			return answer;
