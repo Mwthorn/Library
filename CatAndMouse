@@ -1,0 +1,101 @@
+import java.util.Random;
+
+public class CatAndMouse {
+	private static int param, catXPos, catYPos, mouseXPos, mouseYPos;
+	private static boolean caught = false;
+
+	public static void runCatAndMouse(int n, int catX, int catY, int mouseX, int mouseY) {
+		// Assigning global variables the initial values
+		param = n;
+		catXPos = catX;
+		catYPos = catY;
+		mouseXPos = mouseX;
+		mouseYPos = mouseY;
+		int moveNum = 1;
+
+		System.out.println(n + " [" + catX + ";" + catY + "]" + " [" + mouseX + ";" + mouseY + "]");
+
+		// Check for invalid arguments or starting positions (negative board
+		// size, cat on mouse, etc)
+		if (catX >= n || catY >= n || mouseX >= n || mouseY >= n || catX < 0 || catY < 0 || mouseX < 0 || mouseY < 0
+				|| n <= 0 || (catX == mouseX && catY == mouseY))
+			System.out.println("ERROR");
+		else {
+
+			// We will keep on running the game as long as the mouse is not
+			// caught
+			while (caught == false) {
+				mouseMove();
+				catMove();
+				System.out.println("Move " + moveNum + " [" + catXPos + ";" + catYPos + "]" + " [" + mouseXPos + ";"
+						+ mouseYPos + "]");
+				moveNum++;
+			}
+
+			System.out.println("You caught the mouse!");
+		}
+	}
+
+	public static void mouseMove() {
+		// Using Random instead of Math.random for whole value integers between
+		// parameters
+		Random dice = new Random();
+		boolean valid = false;
+
+		while (valid == false) {
+			int direction = dice.nextInt(5);
+
+			if (direction == 0)
+				System.out.println(direction + " - Stay");
+			if (direction == 1)
+				System.out.println(direction + " - Right");
+			if (direction == 2)
+				System.out.println(direction + " - Down");
+			if (direction == 3)
+				System.out.println(direction + " - Left");
+			if (direction == 4)
+				System.out.println(direction + " - Up");
+
+			if (direction == 1 && mouseXPos + 1 != param) {
+				if (mouseXPos + 1 != catXPos || mouseYPos != catYPos) {
+					mouseXPos++;
+					valid = true;
+				}
+			} else if (direction == 2 && mouseYPos - 1 != -1) {
+				if (mouseYPos - 1 != catYPos || mouseXPos != catXPos) {
+					mouseYPos--;
+					valid = true;
+				}
+			} else if (direction == 3 && mouseXPos - 1 != -1) {
+				if (mouseXPos - 1 != catXPos || mouseYPos != catYPos) {
+					mouseXPos--;
+					valid = true;
+				}
+			} else if (direction == 4 && mouseYPos + 1 != param) {
+				if (mouseYPos + 1 != catYPos || mouseXPos != catXPos) {
+					mouseYPos++;
+					valid = true;
+				}
+			} else if (direction == 0)
+				valid = true;
+		}
+	}
+
+	public static void catMove() {
+		int moves = 0;
+		while (moves < 2 && caught == false) {
+			if (catXPos < mouseXPos)
+				catXPos++;
+			else if (catXPos > mouseXPos)
+				catXPos--;
+			else if (catYPos < mouseYPos)
+				catYPos++;
+			else if (catYPos > mouseYPos)
+				catYPos--;
+			moves++;
+
+			if (catXPos == mouseXPos && catYPos == mouseYPos)
+				caught = true;
+		}
+	}
+}
