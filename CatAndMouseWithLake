@@ -1,3 +1,5 @@
+package hjemmeopgave1;
+
 import java.util.Random;
 
 public class CatAndMouseWithLake {
@@ -120,17 +122,209 @@ public class CatAndMouseWithLake {
 				}
 			}
 			if (catXPos < mouseXPos)
-				catXPos++;
+				if (checkIfLake(catXPos + 1, catYPos)) {
+					System.out.println("found lake on X + 1");
+					if (catYPos == mouseYPos) {
+						System.out.println("should take shortest route");
+						// if this is true, 
+						// take the shortest route around the lake
+						int checkY = 0;
+						boolean foundPath = false;
+						while (!(foundPath)) {
+							if (!(checkIfLake(catYPos + checkY, catXPos + 1))) {
+								// go up (that's the shortest way)
+								catYPos++;
+								foundPath = true;
+							}
+							else if (!(checkIfLake(catYPos - checkY, catXPos + 1))) {
+								// go down (that's the shortest way)
+								catYPos--;
+								foundPath = true;
+							}
+							else {
+								// check further up and down
+								checkY++;
+							}
+						}
+						// while loop ends (it has found the shortest 
+						// way around the lake)
+					}
+
+					// if not the same
+					// 
+					else if ((((lakeY - paramL - 1) - lakeY) - (catYPos - lakeY)  / 2) == 
+							((lakeY - paramL - 1) - lakeY) - (mouseYPos - lakeY)) {
+						// Choose a random path (in our case, up)
+						catYPos++;
+					}
+					else if ((((lakeY - paramL - 1) - lakeY) - (catYPos - lakeY)  / 2) > 
+							((lakeY - paramL - 1) - lakeY) - (mouseYPos - lakeY)) {
+						catYPos--;
+					} 
+					// we know that there is one option left
+					else {
+						catYPos++;
+					}
+				}
+				else {
+					catXPos++;
+				}
+			
 			else if (catXPos > mouseXPos)
+				if (checkIfLake(catXPos - 1, catYPos)) {
+					System.out.println("found lake on X - 1");
+					if (catYPos == mouseYPos) {
+						// if this is true, 
+						System.out.println("should take shortest route");
+						// take the shortest route around the lake
+						int checkY = 0;
+						boolean foundPath = false;
+						while (!(foundPath)) {
+							if (!(checkIfLake(catXPos - 1, catYPos + checkY))) {
+								// go up (that's the shortest way)
+								catYPos++;
+								foundPath = true;
+							}
+							else if (!(checkIfLake(catXPos - 1, catYPos - checkY))) {
+								// go down (that's the shortest way)
+								catYPos--;
+								foundPath = true;
+							}
+							else {
+								// check further up and down
+								checkY++;
+							}
+						}
+						// while loop ends (it has found the shortest 
+						// way around the lake)
+					}
+
+					// if not the same
+					// 
+					else if ((((lakeY - paramL - 1) - lakeY) - (catYPos - lakeY)  / 2) == 
+							((lakeY - paramL - 1) - lakeY) - (mouseYPos - lakeY)) {
+						// Choose a random path (in our case, up)
+						catYPos++;
+					}
+					else if ((((lakeY - paramL - 1) - lakeY) - (catYPos - lakeY)  / 2) > 
+							((lakeY - paramL - 1) - lakeY) - (mouseYPos - lakeY)) {
+						catYPos--;
+					} 
+					// we know that there is one option left
+					else {
+						catYPos++;
+					}
+				}
+				else {
 				catXPos--;
+				}
+			
 			else if (catYPos < mouseYPos)
-				catYPos++;
+				if (checkIfLake(catXPos, catYPos + 1)) {
+					System.out.println("found lake on Y + 1");
+					if (catXPos == mouseXPos) {
+						// if this is true, 
+						System.out.println("should take shortest route");
+						// take the shortest route around the lake
+						int checkX = 0;
+						boolean foundPath = false;
+						while (!(foundPath)) {
+							if (!(checkIfLake(catXPos + checkX, catYPos + 1))) {
+								// go right (that's the shortest way)
+								catXPos++;
+								foundPath = true;
+							}
+							else if (!(checkIfLake(catYPos - checkX, catYPos + 1))) {
+								// go left (that's the shortest way)
+								catXPos--;
+								foundPath = true;
+							}
+							else {
+								// check further up and down
+								checkX++;
+							}
+						}
+						// while loop ends (it has found the shortest 
+						// way around the lake)
+					}
+
+					// if not the same
+					// 
+					else if ((((lakeX - paramL - 1) - lakeX) - (catXPos - lakeX)  / 2) == 
+							((lakeX - paramL - 1) - lakeX) - (mouseXPos - lakeX)) {
+						// Choose a random path (in our case, right)
+						catXPos++;
+					}
+					else if ((((lakeX - paramL - 1) - lakeX) - (catXPos - lakeX)  / 2) > 
+							((lakeX - paramL - 1) - lakeX) - (mouseXPos - lakeX)) {
+						catXPos--;
+					} 
+					// we know that there is one option left
+					else {
+						catXPos++;
+					}
+				}
+				else {
+					catYPos++;
+				}
+			
 			else if (catYPos > mouseYPos)
-				catYPos--;
+				if (checkIfLake(catXPos, catYPos - 1)) {
+					System.out.println("found lake on Y - 1: " + catXPos + "," + (catYPos - 1));
+					if (catXPos == mouseXPos) {
+						// if this is true, 
+						System.out.println("should take shortest route");
+						// take the shortest route around the lake
+						int checkX = 0;
+						boolean foundPath = false;
+						while (!(foundPath)) {
+							if (!(checkIfLake(catXPos + checkX, catYPos - 1))) {
+								// go right (that's the shortest way)
+								catXPos++;
+								foundPath = true;
+							}
+							else if (!(checkIfLake(catYPos - checkX, catYPos - 1))) {
+								// go left (that's the shortest way)
+								catXPos--;
+								foundPath = true;
+							}
+							else {
+								// check further up and down
+								checkX++;
+							}
+						}
+						// while loop ends (it has found the shortest 
+						// way around the lake)
+					}
+
+					// if not the same
+					// 
+					else if ((((lakeX - paramL - 1) - lakeX) - (catXPos - lakeX)  / 2) == 
+							((lakeX - paramL - 1) - lakeX) - (mouseXPos - lakeX)) {
+						// Choose a random path (in our case, right)
+						
+						catXPos++;
+					}
+					else if ((((lakeX - paramL - 1) - lakeX) - (catXPos - lakeX)  / 2) > 
+							((lakeX - paramL - 1) - lakeX) - (mouseXPos - lakeX)) {
+						catXPos--;
+					} 
+					// we know that there is one option left
+					else {
+						System.out.println("go right");
+						catXPos++;
+					}
+				}
+				else {
+					catYPos--;
+				}
+			
 			moves++;
 
 			if (catXPos == mouseXPos && catYPos == mouseYPos)
 				caught = true;
+			
+			
 		}
 	}
 	
