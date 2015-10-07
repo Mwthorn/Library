@@ -97,6 +97,28 @@ public class CatAndMouseWithLake {
 	public static void catMove() {
 		int moves = 0;
 		while (moves < 2 && caught == false) {
+			if(moves == 0) {
+				if(catXPos < mouseXPos && catYPos < mouseYPos && !checkIfLake(catXPos + 1, catYPos + 1)) {
+					catXPos++;
+					catYPos++;
+					break;
+				}
+				else if(catXPos < mouseXPos && catYPos > mouseYPos && !checkIfLake(catXPos + 1, catYPos - 1)) {
+					catXPos++;
+					catYPos--;
+					break;
+				}
+				else if(catXPos > mouseXPos && catYPos < mouseYPos && !checkIfLake(catXPos - 1, catYPos + 1)) {
+					catXPos--;
+					catYPos++;
+					break;
+				}
+				else if(catXPos > mouseXPos && catYPos > mouseYPos && !checkIfLake(catXPos - 1, catYPos - 1)) {
+					catXPos--;
+					catYPos--;
+					break;
+				}
+			}
 			if (catXPos < mouseXPos)
 				catXPos++;
 			else if (catXPos > mouseXPos)
