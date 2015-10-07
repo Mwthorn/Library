@@ -111,4 +111,13 @@ public class CatAndMouseWithLake {
 				caught = true;
 		}
 	}
+	
+	public static boolean checkIfLake(int checkX, int checkY) {
+		boolean lakeThere = false;
+		
+		if ((checkX >= lakeX && checkX <= lakeX + (paramL - 1)) && (checkY >= lakeY && checkY <= lakeY + (paramL - 1)))
+			lakeThere = true;
+		
+		return lakeThere;
+	}
 }
