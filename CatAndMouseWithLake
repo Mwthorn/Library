@@ -1,16 +1,19 @@
 import java.util.Random;
 
 public class CatAndMouseWithLake {
-	private static int param, catXPos, catYPos, mouseXPos, mouseYPos;
+	private static int paramB, paramL, catXPos, catYPos, mouseXPos, mouseYPos, lakeX, lakeY;
 	private static boolean caught = false;
 
 	public static void runCatAndMouse(int n, int catX, int catY, int mouseX, int mouseY, int m, int lakeLLX, int lakeLLY) {
 		// Assigning global variables the initial values
-		param = n;
+		paramB = n;
+		paramL = m;
 		catXPos = catX;
 		catYPos = catY;
 		mouseXPos = mouseX;
 		mouseYPos = mouseY;
+		lakeX = lakeLLX;
+		lakeY = lakeLLY;
 		int moveNum = 1;
 
 		System.out.println(n + " [" + catX + ";" + catY + "]" + " [" + mouseX + ";" + mouseY + "]");
@@ -29,6 +32,7 @@ public class CatAndMouseWithLake {
 
 			// We will keep on running the game as long as the mouse is not
 			// caught
+
 			while (caught == false) {
 				mouseMove();
 				catMove();
@@ -43,7 +47,7 @@ public class CatAndMouseWithLake {
 
 	public static void mouseMove() {
 		// Using Random instead of Math.random for whole value integers between
-		// parameters
+		// paramBeters
 		Random dice = new Random();
 		boolean valid = false;
 
@@ -61,23 +65,27 @@ public class CatAndMouseWithLake {
 			if (direction == 4)
 				System.out.println(direction + " - Up");
 
-			if (direction == 1 && mouseXPos + 1 != param) {
-				if (mouseXPos + 1 != catXPos || mouseYPos != catYPos) {
+			if (direction == 1 && mouseXPos + 1 != paramB) {
+				if ((mouseXPos + 1 != catXPos || mouseYPos != catYPos) && (mouseXPos + 1 != lakeX || 
+						!(mouseYPos >= lakeY) && (mouseYPos <= lakeY + (paramL - 1)))) {
 					mouseXPos++;
 					valid = true;
 				}
 			} else if (direction == 2 && mouseYPos - 1 != -1) {
-				if (mouseYPos - 1 != catYPos || mouseXPos != catXPos) {
+				if ((mouseYPos - 1 != catYPos || mouseXPos != catXPos) && (mouseYPos - 1 != lakeY + (paramL - 1) || 
+						!(mouseXPos <= lakeX + (paramL - 1) && mouseXPos >= lakeX))) {
 					mouseYPos--;
 					valid = true;
 				}
 			} else if (direction == 3 && mouseXPos - 1 != -1) {
-				if (mouseXPos - 1 != catXPos || mouseYPos != catYPos) {
+				if ((mouseXPos - 1 != catXPos || mouseYPos != catYPos) && (mouseXPos - 1 != lakeX + (paramL - 1) || 
+						!(mouseYPos <= lakeY + (paramL - 1) && mouseYPos >= lakeY))) {
 					mouseXPos--;
 					valid = true;
 				}
-			} else if (direction == 4 && mouseYPos + 1 != param) {
-				if (mouseYPos + 1 != catYPos || mouseXPos != catXPos) {
+			} else if (direction == 4 && mouseYPos + 1 != paramB) {
+				if ((mouseYPos + 1 != catYPos || mouseXPos != catXPos) && (mouseYPos + 1 != lakeY || 
+						!(mouseXPos >= lakeX) && (mouseXPos <= lakeX + (paramL - 1)))) {
 					mouseYPos++;
 					valid = true;
 				}
