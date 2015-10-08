@@ -152,6 +152,16 @@ public class CatAndMouseWithLake {
 
 					// if not the same
 					// 
+					
+					/* 
+					* Coordinates for the lakes (4 corners)
+					(lakeX, lakeY) (buttom-left)
+					(lakeX, lakeY + paramL -1 ) (up-left)
+					(lakeX + paramL - 1, lake) (buttom-right)
+					(lakeX + paramL - 1, lakeY + paramL - 1) (up-right)
+ 
+					 */
+					
 					else if ((((lakeY - paramL - 1) - lakeY) - (catYPos - lakeY)  / 2) == 
 							((lakeY - paramL - 1) - lakeY) - (mouseYPos - lakeY)) {
 						// Choose a random path (in our case, up)
