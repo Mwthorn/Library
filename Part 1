@@ -1,5 +1,7 @@
 public class SafeDivMult{
 	 static int safeIntDivide(int a, int b) {
+		
+		 //Basic error catching for division by 0, etc
 		try {
 			int answer = a / b;
 			return answer;
@@ -10,22 +12,28 @@ public class SafeDivMult{
 	}
 	
 	public static int safeIntMultiply(int a, int b) {
+		//Catching any possible arithmetic exceptions that we could come across
 		try {
 			int prev = 0, current = 0, c = a, d = b;
 			
+			//A method to deal with min value multiplication by 1
 			if ((a == Integer.MIN_VALUE || b == Integer.MIN_VALUE) && (a == 1 || b == 1))
 				return Integer.MIN_VALUE;
 		
+			//We turn all negative numbers in to positives for the testing
 			if (c < 0)
 				c = c * -1;
 			if (d < 0)
 				d = d * -1;
+			//Testing to see if the code ever loops from exceeding Integer.MAX_VALUE.  Slowly increment the multiplication
 			for (int i = 1; i <= d; i++) {
 				prev = current;
 				current = c*i;
+				//Forcing the program to error out by dividing by 0
 				if (prev > current)
 					a = a / 0;
 			}
+			//If it passes all tests, then we return the numbers multiplied by each other
 			int answer = a * b;
 			return answer;
 		} catch (ArithmeticException e) {
