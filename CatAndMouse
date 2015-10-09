@@ -13,6 +13,7 @@ public class CatAndMouse {
 		mouseYPos = mouseY;
 		int moveNum = 1;
 
+		//Report the stating position of the mouse
 		System.out.println(n + " [" + catX + ";" + catY + "]" + " [" + mouseX + ";" + mouseY + "]");
 
 		// Check for invalid arguments or starting positions (negative board
@@ -31,51 +32,42 @@ public class CatAndMouse {
 						+ mouseYPos + "]");
 				moveNum++;
 			}
-
-			System.out.println("You caught the mouse!");
 		}
 	}
 
 	public static void mouseMove() {
-		// Using Random instead of Math.random for whole value integers between
-		// parameters
+		// Using Random instead of Math.random for whole value integers between parameters
 		Random dice = new Random();
+		
+		//It will keep on looping while it doesn't have a valid destination
 		boolean valid = false;
-
 		while (valid == false) {
 			int direction = dice.nextInt(5);
-
-			if (direction == 0)
-				System.out.println(direction + " - Stay");
-			if (direction == 1)
-				System.out.println(direction + " - Right");
-			if (direction == 2)
-				System.out.println(direction + " - Down");
-			if (direction == 3)
-				System.out.println(direction + " - Left");
-			if (direction == 4)
-				System.out.println(direction + " - Up");
-
+			//Direction one is right
 			if (direction == 1 && mouseXPos + 1 != param) {
 				if (mouseXPos + 1 != catXPos || mouseYPos != catYPos) {
 					mouseXPos++;
 					valid = true;
 				}
+			//Direction 2 is down
 			} else if (direction == 2 && mouseYPos - 1 != -1) {
 				if (mouseYPos - 1 != catYPos || mouseXPos != catXPos) {
 					mouseYPos--;
 					valid = true;
 				}
+			//Direction 3 is left
 			} else if (direction == 3 && mouseXPos - 1 != -1) {
 				if (mouseXPos - 1 != catXPos || mouseYPos != catYPos) {
 					mouseXPos--;
 					valid = true;
 				}
+			//Direction 4 is up
 			} else if (direction == 4 && mouseYPos + 1 != param) {
 				if (mouseYPos + 1 != catYPos || mouseXPos != catXPos) {
 					mouseYPos++;
 					valid = true;
 				}
+			//Direction 0 means it stays in the same place
 			} else if (direction == 0)
 				valid = true;
 		}
@@ -83,7 +75,9 @@ public class CatAndMouse {
 
 	public static void catMove() {
 		int moves = 0;
+		//It will keep on moving while it has moved up to twice and the mouse isn't caught
 		while (moves < 2 && caught == false) {
+			//If the cats X is than the mouse's it will go right, if not it will go left, etc for up and down
 			if (catXPos < mouseXPos)
 				catXPos++;
 			else if (catXPos > mouseXPos)
@@ -94,6 +88,7 @@ public class CatAndMouse {
 				catYPos--;
 			moves++;
 
+			//Reports the mouse as caught if the cats X and Y are the same as the mouses
 			if (catXPos == mouseXPos && catYPos == mouseYPos)
 				caught = true;
 		}
