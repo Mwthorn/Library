@@ -1,0 +1,192 @@
+package library;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+
+public class User {
+	public String log = "log.txt";
+	public boolean Checker = false;
+	
+	private String name;
+	private Book[] myBooks;
+	private int numberOfBooks;
+	
+	public User(String name) {
+		this(name,10);
+	}
+	
+	public User(String name, int maxNumberOfBooks) {
+		this.name = name;
+		this.myBooks = new Book[maxNumberOfBooks];
+		this.numberOfBooks = 0;
+	}
+	
+	public void returnBook(Book book) {
+		this.Checker = false;
+		for (int i = 0 ; i < this.myBooks.length; i++) {
+			if (this.myBooks[i] == book) {
+				this.myBooks[i] = null;
+				numberOfBooks--;
+				book.setAvailable(true);
+				this.Checker = true;
+			}
+		}
+		if (this.Checker == true) {
+			try {
+
+			    FileWriter outFile = new FileWriter(log, true);
+		    	PrintWriter out = new PrintWriter(outFile);
+		    	
+		    	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		        
+		        /*getting current date time using calendar class 
+		         * An Alternative of above*/
+		        Calendar calobj = Calendar.getInstance();
+			    // Also could be written as follows on one line
+
+			    // Printwriter out = new PrintWriter(new FileWriter(filename));
+
+			    // Write text to file
+		        
+		        
+			    out.println("["+ df.format(calobj.getTime()) + "] INFO: " + this.name + " har retuneret " + book);
+			    out.close();
+
+			} catch (IOException e) {
+
+			    e.printStackTrace();
+
+			}
+		}
+		else {
+			try {
+
+			    FileWriter outFile = new FileWriter(log, true);
+		    	PrintWriter out = new PrintWriter(outFile);
+		    	
+		    	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		        
+		        /*getting current date time using calendar class 
+		         * An Alternative of above*/
+		        Calendar calobj = Calendar.getInstance();
+			    // Also could be written as follows on one line
+
+			    // Printwriter out = new PrintWriter(new FileWriter(filename));
+
+			    // Write text to file
+		        
+		        
+			    out.println("["+ df.format(calobj.getTime()) + "] ERROR: " + this.name + " prøvede at aflevere " + book + " men havde ikke bogen!");
+			    out.close();
+
+			} catch (IOException e) {
+
+			    e.printStackTrace();
+
+			}
+		}
+		
+		// Sortere listen
+	}
+	
+	public void borrowBook(Book book) {
+		if (!book.isAvailable()) {
+			try {
+
+			    FileWriter outFile = new FileWriter(log, true);
+		    	PrintWriter out = new PrintWriter(outFile);
+		    	
+		    	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		        
+		        /*getting current date time using calendar class 
+		         * An Alternative of above*/
+		        Calendar calobj = Calendar.getInstance();
+			    // Also could be written as follows on one line
+
+			    // Printwriter out = new PrintWriter(new FileWriter(filename));
+
+			    // Write text to file
+		        
+		        
+			    out.println("["+ df.format(calobj.getTime()) + "] ERROR: " + this.name + " prøvede at låne " + book + " men den er allerede udlånt!");
+			    out.close();
+
+			} catch (IOException e) {
+
+			    e.printStackTrace();
+
+			}
+		} else if (numberOfBooks >= myBooks.length) {
+			try {
+
+			    FileWriter outFile = new FileWriter(log, true);
+		    	PrintWriter out = new PrintWriter(outFile);
+		    	
+		    	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		        
+		        /*getting current date time using calendar class 
+		         * An Alternative of above*/
+		        Calendar calobj = Calendar.getInstance();
+			    // Also could be written as follows on one line
+
+			    // Printwriter out = new PrintWriter(new FileWriter(filename));
+
+			    // Write text to file
+		        
+		        
+			    out.println("["+ df.format(calobj.getTime()) + "] ERROR: " + this.name + " prøvede at låne " + book + " men overgik grænsen!");
+			    out.close();
+
+			} catch (IOException e) {
+
+			    e.printStackTrace();
+
+			}
+		} else {
+			this.myBooks[numberOfBooks] = book;
+			numberOfBooks++;
+			book.setAvailable(false);
+			try {
+
+			    FileWriter outFile = new FileWriter(log, true);
+		    	PrintWriter out = new PrintWriter(outFile);
+		    	
+		    	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		        
+		        /*getting current date time using calendar class 
+		         * An Alternative of above*/
+		        Calendar calobj = Calendar.getInstance();
+			    // Also could be written as follows on one line
+
+			    // Printwriter out = new PrintWriter(new FileWriter(filename));
+
+			    // Write text to file
+		        
+		        
+			    out.println("["+ df.format(calobj.getTime()) + "] INFO: " + this.name + " har lånt " + book);
+			    out.close();
+
+			} catch (IOException e) {
+
+			    e.printStackTrace();
+
+			}
+		}
+	}
+	
+	public String toString() {
+		return this.name;
+	}
+	
+	public void printStatus() {
+		String s = "Status for user: "+this.name+"\n";
+		s += "has the books: "+Arrays.toString(this.myBooks);
+		System.out.println(s);
+	}
+	
+}
